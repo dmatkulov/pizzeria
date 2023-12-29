@@ -1,22 +1,23 @@
 import React, {useState} from 'react';
-import {PizzaApi} from '../../types';
+import {ApiDish} from '../../types';
 import ButtonSpinner from '../Spinner/ButtonSpinner';
+import {Link} from 'react-router-dom';
 
-const initialState: PizzaApi = {
+const initialState: ApiDish = {
   title: '',
   image: '',
   price: '',
 };
 
 interface Props {
-  onSubmitPizza: (pizza: PizzaApi) => void;
-  existingPizza?: PizzaApi;
+  onSubmitPizza: (pizza: ApiDish) => void;
+  existingPizza?: ApiDish;
   isEdit?: boolean;
   isLoading?: boolean;
 }
 
-const PizzaForm: React.FC<Props> = ({onSubmitPizza, existingPizza = initialState, isEdit, isLoading}) => {
-  const [pizza, setPizza] = useState<PizzaApi>(existingPizza);
+const DishForm: React.FC<Props> = ({onSubmitPizza, existingPizza = initialState, isEdit, isLoading}) => {
+  const [pizza, setPizza] = useState<ApiDish>(existingPizza);
   
   const changePizza = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPizza(prevState => ({
@@ -71,16 +72,21 @@ const PizzaForm: React.FC<Props> = ({onSubmitPizza, existingPizza = initialState
           onChange={changePizza}
         />
       </div>
-      <button
-        type="submit"
-        className="btn btn-success me-3"
-        disabled={isLoading}
-      >
-        {isLoading && <ButtonSpinner/>}
-        {isEdit ? 'Edit' : 'Create'}
-      </button>
+      <div>
+        <button
+          type="submit"
+          className="btn btn-success me-3"
+          disabled={isLoading}
+        >
+          {isLoading && <ButtonSpinner/>}
+          {isEdit ? 'Edit' : 'Create'}
+        </button>
+        <Link to='/admin' className="btn btn-link">
+          Back to Admin panel
+        </Link>
+      </div>
     </form>
   );
 };
 
-export default PizzaForm;
+export default DishForm;

@@ -1,20 +1,12 @@
-import {Route, Routes} from 'react-router-dom';
-import PizzaMenu from './PizzaMenu';
-import AdminLayout from '../../components/AdminLayout/AdminLayout';
+import React from 'react';
+import Dishes from '../Dishes/Dishes';
 
-function App() {
-  
+const AdminPage: React.FC = () => {
   return (
     <>
-      <AdminLayout>
-        <Routes>
-          <Route path="/admin" element={<PizzaMenu/>} />
-          <Route path="/admin/dishes/add-new-dish" element={<PizzaMenu/>} />
-          <Route path="*" element={<h2>Not found</h2>}/>
-        </Routes>
-      </AdminLayout>
+      <Dishes/>
     </>
   );
-}
+};
 
-export default App;
+export default AdminPage;

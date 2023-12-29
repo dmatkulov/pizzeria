@@ -1,12 +1,12 @@
-export interface Pizza {
+export interface Dish {
   id: string;
   title: string;
   image: string;
   price: string;
 }
 
-export type PizzaApi = Omit<Pizza, 'id'>
+export type ApiDish = Omit<Dish, 'id'>
 
 export interface PizzaList {
-  [id: string]: PizzaApi;
+  [id: string]: ApiDish;
 }
