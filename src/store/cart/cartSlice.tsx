@@ -4,11 +4,13 @@ import {RootState} from '../../app/store';
 
 interface CartState {
   cartDishes: Cart[];
+  total: number;
   show: boolean;
 }
 
 const initialState: CartState = {
   cartDishes: [],
+  total: 0,
   show: false,
 };
 
@@ -30,6 +32,10 @@ const cartSlice = createSlice({
           dish
         });
       }
+      
+      state.total = state.cartDishes.reduce((sum, cartDish) => {
+        return sum + cartDish.amount * +cartDish.dish.price;
+      }, 150);
     }
   }
 });
@@ -44,3 +50,4 @@ export const {
 
 export const selectCartDishes = (store: RootState) => store.cart.cartDishes;
 export const selectModalShow = (state: RootState) => state.cart.show;
+export const selectTotal = (state: RootState) => state.cart.total;

@@ -22,10 +22,10 @@ const Modal: React.FC<PropsWithChildren> = ({children}) => {
         <div className="modal-dialog" onClick={onInnerClick}>
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5">Contact info</h1>
+              <h1 className="modal-title fs-5">Checkout</h1>
               <button type="button" className="btn btn-close" onClick={onClose}></button>
             </div>
-            <div className="modal-body m-0 p-0">
+            <div className="modal-body m-0 p-4">
               {children}
             </div>
           </div>

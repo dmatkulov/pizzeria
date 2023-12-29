@@ -6,7 +6,7 @@ import DishCardUser from '../../components/Dish/DishCardUser';
 import Spinner from '../../components/Spinner/Spinner';
 import Modal from '../../components/Modal/Modal';
 import CartDishes from '../../components/Cart/CartDishes';
-import {setShowModal} from '../../store/cart/cartSlice';
+import Checkout from '../../components/Checkout/Checkout';
 
 const Home: React.FC = () => {
   const fetchLoading = useAppSelector(selectFetchLoading);
@@ -19,15 +19,7 @@ const Home: React.FC = () => {
   
   return (
     <>
-      <div className="col4">
-        Order total: KGS
-        <button
-          className="btn btn-primary"
-          onClick={() => dispatch(setShowModal(true))}
-        >
-          Checkout
-        </button>
-      </div>
+      <Checkout/>
       <div className="row">
         {fetchLoading ? <Spinner/> : dishes.map((dish) => (
           <div key={dish.id} className="col-3">
@@ -39,6 +31,14 @@ const Home: React.FC = () => {
       </div>
       <Modal>
         <CartDishes/>
+        <div className="d-flex justify-content-between">
+          <button>Order</button>
+          <button
+            className="btn btn-outline-danger w-100"
+          >
+            Cancel
+          </button>
+        </div>
       </Modal>
     </>
   );

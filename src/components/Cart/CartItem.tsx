@@ -9,15 +9,13 @@ const CartItem: React.FC<Props> = ({cartDish}) => {
   const price = +cartDish.dish.price * cartDish.amount;
 
   return (
-    <div className="card mb-2 p-2">
-      <div className="row align-items-center">
-        <div className="col">{cartDish.dish.title}</div>
+    <div className="row row-cols-4 border-bottom pb-2 mb-3">
+        <div className="col-5">{cartDish.dish.title}</div>
         <div className="col-2">x{cartDish.amount}</div>
-        <div className="col-3 text-end">
+        <div className="col-3 text-start">
           {price} KGS
         </div>
-      </div>
-      <button>Delete</button>
+        <button className="col-2 btn btn-danger ms-auto">Delete</button>
     </div>
   );
 };
