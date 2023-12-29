@@ -7,7 +7,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import Modal from '../../components/Modal/Modal';
 import CartDishes from '../../components/Cart/CartDishes';
 import Checkout from '../../components/Checkout/Checkout';
-import {selectTotal, setShowModal} from '../../store/cart/cartSlice';
+import {selectTotal} from '../../store/cart/cartSlice';
 
 const Home: React.FC = () => {
   const fetchLoading = useAppSelector(selectFetchLoading);
@@ -33,19 +33,6 @@ const Home: React.FC = () => {
       </div>
       <Modal>
         <CartDishes/>
-        <div className="d-flex justify-content-between gap-3">
-          <button
-            className="btn btn-outline-danger w-100"
-            onClick={() => dispatch(setShowModal(false))}
-          >
-            Cancel
-          </button>
-          <button
-            className="btn btn-primary w-100"
-          >
-            Order
-          </button>
-        </div>
       </Modal>
     </>
   );

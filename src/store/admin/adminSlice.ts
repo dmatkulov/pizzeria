@@ -1,4 +1,4 @@
-import {ApiDish, Dish} from '../../types';
+import {ApiDish, Cart, Dish} from '../../types';
 import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
 import {createDish, deleteDish, fetchDishes, fetchOneDish, updateDish} from './adminThunks';
@@ -6,6 +6,7 @@ import {createDish, deleteDish, fetchDishes, fetchOneDish, updateDish} from './a
 interface AdminState {
   dishes: Dish[];
   dish: ApiDish | null;
+  orders: Cart[];
   createLoading: boolean;
   fetchLoading: boolean;
   fetchOneLoading: boolean;
@@ -17,6 +18,7 @@ interface AdminState {
 const initialState: AdminState = {
   dishes: [],
   dish: null,
+  orders: [],
   createLoading: false,
   fetchLoading: false,
   fetchOneLoading: false,
@@ -86,6 +88,7 @@ export const adminReducers = adminSlice.reducer;
 
 export const selectDishes = (state: RootState) => state.dishes.dishes;
 export const selectDish = (state: RootState) => state.dishes.dish;
+export const selectOrders= (state: RootState) => state.dishes.orders;
 export const selectCreateLoading = (state: RootState) => state.dishes.createLoading;
 export const selectFetchLoading = (state: RootState) => state.dishes.fetchLoading;
 export const selectUpdating = (state: RootState) => state.dishes.isUpdating;

@@ -19,3 +19,7 @@ export interface Cart {
 export interface ApiOrder {
   [id: string]: number;
 }
+
+export interface ApiOrders {
+  [id: string]: ApiOrder;
+}
