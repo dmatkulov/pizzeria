@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {selectDish, selectFetchOneLoading, selectUpdating} from '../../store/adminSlice';
+import {selectDish, selectFetchOneLoading, selectUpdating} from '../../store/admin/adminSlice';
 import {useNavigate, useParams} from 'react-router-dom';
-import {fetchOneDish, updateDish} from '../../store/adminThunks';
+import {fetchOneDish, updateDish} from '../../store/admin/adminThunks';
 import DishForm from '../../components/DishForm/DishForm';
 import {ApiDish} from '../../types';
 import Spinner from '../../components/Spinner/Spinner';

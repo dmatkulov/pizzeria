@@ -1,6 +1,6 @@
-import {ApiDish, Dish} from '../types';
+import {ApiDish, Dish} from '../../types';
 import {createSlice} from '@reduxjs/toolkit';
-import {RootState} from '../app/store';
+import {RootState} from '../../app/store';
 import {createDish, deleteDish, fetchDishes, fetchOneDish, updateDish} from './adminThunks';
 
 interface AdminState {
@@ -84,10 +84,10 @@ export const adminSlice = createSlice({
 
 export const adminReducers = adminSlice.reducer;
 
-export const selectDishes = (state: RootState) => state.pizzas.dishes;
-export const selectDish = (state: RootState) => state.pizzas.dish;
-export const selectCreateLoading = (state: RootState) => state.pizzas.createLoading;
-export const selectFetchLoading = (state: RootState) => state.pizzas.fetchLoading;
-export const selectUpdating = (state: RootState) => state.pizzas.isUpdating;
-export const selectFetchOneLoading = (state: RootState) => state.pizzas.fetchOneLoading;
-export const selectDeleteLoading = (state: RootState) => state.pizzas.deleteLoading;
+export const selectDishes = (state: RootState) => state.dishes.dishes;
+export const selectDish = (state: RootState) => state.dishes.dish;
+export const selectCreateLoading = (state: RootState) => state.dishes.createLoading;
+export const selectFetchLoading = (state: RootState) => state.dishes.fetchLoading;
+export const selectUpdating = (state: RootState) => state.dishes.isUpdating;
+export const selectFetchOneLoading = (state: RootState) => state.dishes.fetchOneLoading;
+export const selectDeleteLoading = (state: RootState) => state.dishes.deleteLoading;

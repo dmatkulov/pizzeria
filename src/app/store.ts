@@ -1,9 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {adminReducers} from '../store/adminSlice';
+import {adminReducers} from '../store/admin/adminSlice';
+import {cartReducer} from '../store/cart/cartSlice';
 
 export const store = configureStore({
   reducer: {
-    pizzas: adminReducers,
+    dishes: adminReducers,
+    cart: cartReducer,
   }
 });
 

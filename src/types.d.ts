@@ -11,6 +11,6 @@ export interface PizzaList {
 }
 
 export interface Cart {
-  dish: Dish[];
+  dish: Dish;
   amount: number;
 }

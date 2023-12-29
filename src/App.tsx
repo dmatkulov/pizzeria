@@ -3,6 +3,7 @@ import AdminPage from './containers/AdminPage/AdminPage';
 import AddDishForm from './containers/AddDish/AddDishForm';
 import Layout from './components/Layout/Layout';
 import EditDishForm from './containers/EditDishForm/EditDishForm';
+import Home from './containers/Home/Home';
 
 function App() {
   
@@ -14,6 +15,7 @@ function App() {
           <Route path="/admin/dishes" element={<AdminPage/>} />
           <Route path="/admin/dishes/add-new-dish" element={<AddDishForm/>} />
           <Route path="/admin/dishes/edit-dish/:id" element={<EditDishForm/>} />
+          <Route path='/' element={<Home/>}/>
           <Route path="*" element={<h2>Not found</h2>}/>
         </Routes>
       </Layout>

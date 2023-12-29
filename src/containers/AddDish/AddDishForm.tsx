@@ -3,9 +3,9 @@ import DishForm from '../../components/DishForm/DishForm';
 import {useNavigate} from 'react-router-dom';
 import {useAppDispatch} from '../../app/hooks';
 import {useSelector} from 'react-redux';
-import {selectCreateLoading} from '../../store/adminSlice';
+import {selectCreateLoading} from '../../store/admin/adminSlice';
 import {ApiDish} from '../../types';
-import {createDish, fetchDishes} from '../../store/adminThunks';
+import {createDish, fetchDishes} from '../../store/admin/adminThunks';
 
 const AddPizza: React.FC = () => {
   const navigate = useNavigate();

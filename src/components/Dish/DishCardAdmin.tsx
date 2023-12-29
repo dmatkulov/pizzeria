@@ -2,13 +2,15 @@ import React from 'react';
 import {Dish} from '../../types';
 import {Link} from 'react-router-dom';
 import {defaultImage} from '../../lib/constants';
+import ButtonSpinner from '../Spinner/ButtonSpinner';
 
 interface Props {
   pizza: Dish;
   deleteLoading: boolean | string;
+  onDelete: React.MouseEventHandler;
 }
 
-const DishCard: React.FC<Props> = ({pizza}) => {
+const DishCardAdmin: React.FC<Props> = ({pizza, deleteLoading, onDelete}) => {
   return (
     <div className="card mb-3">
       <div className="row g-0">
@@ -26,7 +28,10 @@ const DishCard: React.FC<Props> = ({pizza}) => {
             </Link>
             <button
               className="btn btn-danger w-100"
+              disabled={deleteLoading ? deleteLoading === pizza.id : false}
+              onClick={onDelete}
             >
+              {deleteLoading && deleteLoading === pizza.id && (<ButtonSpinner/>)}
               Delete
             </button>
           </div>
@@ -36,4 +41,4 @@ const DishCard: React.FC<Props> = ({pizza}) => {
   );
 };
 
-export default DishCard;
+export default DishCardAdmin;
