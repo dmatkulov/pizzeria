@@ -36,6 +36,22 @@ const cartSlice = createSlice({
       state.total = state.cartDishes.reduce((sum, cartDish) => {
         return sum + cartDish.amount * +cartDish.dish.price;
       }, 150);
+    },
+    deleteCartDish: (state, {payload: dish}: PayloadAction<Dish>) => {
+      state.cartDishes = state.cartDishes.filter((cartDish) => {
+        return cartDish.dish.id !== dish.id;
+      });
+      
+      if (state.cartDishes.length > 0) {
+        state.total = state.cartDishes.reduce((sum, cartDish) => {
+          return sum + cartDish.amount * +cartDish.dish.price;
+        }, 150);
+      } else {
+        state.total = 0;
+      }
+    },
+    clearCart: (state) => {
+      state.cartDishes = [];
     }
   }
 });
@@ -46,6 +62,8 @@ export const cartReducer = cartSlice.reducer;
 export const {
   setShowModal,
   addDish,
+  deleteCartDish,
+  clearCart,
 } = cartSlice.actions;
 
 export const selectCartDishes = (store: RootState) => store.cart.cartDishes;

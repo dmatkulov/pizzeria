@@ -15,22 +15,22 @@ const CartDishes: React.FC = () => {
         {cartDishes.map((cartDish) => (
           <CartItem key={cartDish.dish.id} cartDish={cartDish}/>
         ))}
-        <div>
-          <div>
+        <div className="text-end">
+          <p className="mb-1">
             Delivery: <strong>150 KGS</strong>
-          </div>
-          <div>
+          </p>
+          <p className="mb-0">
             Total: <strong>{total} KGS</strong>
-          </div>
+          </p>
         </div>
       </>
     );
   }
   
   return (
-    <>
+    <div className="mb-4">
       {cart}
-    </>
+    </div>
   );
 };
 
