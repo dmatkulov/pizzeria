@@ -9,19 +9,22 @@ import Spinner from '../../components/Spinner/Spinner';
 const Orders: React.FC = () => {
   const dispatch = useAppDispatch();
   const orderLoading = useAppSelector(selectOrderLoading);
-  
   const orders = useAppSelector(selectOrders);
   
   useEffect(() => {
     void dispatch(fetchOrders());
   }, [dispatch]);
   
+  if (!orders.length) {
+    return <div>No orders available.</div>;
+  }
+  
   return (
     <div className="row">
       {orderLoading && <Spinner/>}
       <div className="col-8">
-        {orders.map((order) => (
-          <OrderItem order={order} key={order.dish.id}/>
+        {orders.length > 0 && orders.map((order) => (
+          <OrderItem order={order[0]} key={Object.keys(order)[0]}/>
         ))}
       </div>
       <div className="col-4">

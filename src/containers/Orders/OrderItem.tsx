@@ -5,9 +5,12 @@ interface Props {
   order: Cart;
 }
 const OrderItem: React.FC<Props> = ({order}) => {
+  if (!order || !order.dish) {
+    return null;
+  }
   const price = +order.dish.price * order.amount;
   
-  return (
+  return order && (
     <div className="d-flex justify-content-between align-items-center pb-3 mb-3 border-bottom">
       <div
         className="col-2"

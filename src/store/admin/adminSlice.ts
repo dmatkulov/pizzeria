@@ -1,4 +1,4 @@
-import {ApiDish, Cart, Dish} from '../../types';
+import {ApiDish, Dish, OrderList} from '../../types';
 import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
 import {createDish, deleteDish, fetchDishes, fetchOneDish, fetchOrders, updateDish} from './adminThunks';
@@ -6,7 +6,7 @@ import {createDish, deleteDish, fetchDishes, fetchOneDish, fetchOrders, updateDi
 interface AdminState {
   dishes: Dish[];
   dish: ApiDish | null;
-  orders: Cart[];
+  orders: OrderList[];
   createLoading: boolean;
   fetchLoading: boolean;
   fetchOneLoading: boolean;
@@ -67,25 +67,42 @@ export const adminSlice = createSlice({
     builder.addCase(fetchOrders.pending, (state) => {
       state.orderLoading = true;
     });
-    builder.addCase(fetchOrders.fulfilled, (state, {payload: orders}) => {
+    
+    builder.addCase(fetchOrders.fulfilled, (state, { payload: orders }) => {
       state.orderLoading = false;
       
-      const newOrders: Cart[] = [];
+      state.orders = [];
       
-      state.dishes.forEach((dish) => {
-        orders.forEach((order) => {
+      Object.keys(orders).forEach((orderId) => {
+        const order = orders[orderId];
+        
+        state.dishes.forEach((dish) => {
           const amount = order[dish.id];
           
           if (amount) {
-            newOrders.push({
-              dish,
-              amount,
-            });
+            const existingOrderIndex = state.orders.findIndex((order) => Object.keys(order)[0] === orderId);
+            
+            if (existingOrderIndex === -1) {
+              const orderItems: OrderList = {};
+              
+              orderItems[orderId] = {
+                dish: dish,
+                amount: amount,
+              };
+              
+              state.orders.push(orderItems);
+            } else {
+              state.orders[existingOrderIndex][orderId] = {
+                dish: dish,
+                amount: amount,
+              };
+            }
           }
         });
       });
-      state.orders = newOrders;
+      console.log(state.orders);
     });
+    
     builder.addCase(fetchOrders.rejected, (state) => {
       state.orderLoading = false;
     });
@@ -110,12 +127,11 @@ export const adminSlice = createSlice({
   }
 });
 
-
 export const adminReducers = adminSlice.reducer;
 
 export const selectDishes = (state: RootState) => state.dishes.dishes;
 export const selectDish = (state: RootState) => state.dishes.dish;
-export const selectOrders= (state: RootState) => state.dishes.orders;
+export const selectOrders = (state: RootState) => state.dishes.orders;
 export const selectCreateLoading = (state: RootState) => state.dishes.createLoading;
 export const selectFetchLoading = (state: RootState) => state.dishes.fetchLoading;
 export const selectUpdating = (state: RootState) => state.dishes.isUpdating;

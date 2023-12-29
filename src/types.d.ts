@@ -16,11 +16,10 @@ export interface Cart {
   dish: Dish;
   amount: number;
 }
-export type Order = Omit<Dish, 'image'>
+export type Order = Omit<Dish, 'id' | 'image'>
 
 export interface OrderList {
-  dish: Order;
-  amount: number;
+  [id: string]: Cart
 }
 
 export interface ApiOrder {
@@ -30,4 +29,3 @@ export interface ApiOrder {
 export interface ApiOrders {
   [id: string]: ApiOrder;
 }
-

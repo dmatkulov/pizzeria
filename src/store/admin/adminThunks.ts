@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {ApiDish, ApiOrder, ApiOrders, Dish, DishesList} from '../../types';
+import {ApiDish, ApiOrders, Dish, DishesList} from '../../types';
 import axiosApi from '../../axiosApi';
 
 export const createDish = createAsyncThunk<void, ApiDish>(
@@ -31,18 +31,11 @@ export const fetchDishes = createAsyncThunk<Dish[], undefined>(
   }
 );
 
-export const fetchOrders = createAsyncThunk<ApiOrder[], undefined>(
+export const fetchOrders = createAsyncThunk<ApiOrders, undefined>(
   'orders/fetchAll',
   async () => {
-    const ordersResponse = await axiosApi.get<ApiOrders | null>('/orders.json');
-    const orders = ordersResponse.data;
-    
-    if (!orders) {
-      return [];
-    }
-    
-    const newOrders: ApiOrder[] = Object.keys(orders).map((id) => orders[id]);
-    return newOrders;
+    const orders = await axiosApi.get<ApiOrders | null>('/orders.json');
+    return orders.data ?? {};
   }
 );
 
