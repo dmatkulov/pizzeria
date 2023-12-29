@@ -37,7 +37,7 @@ interface updateDishParams {
 }
 
 export const updateDish = createAsyncThunk<void, updateDishParams>(
-  'dishes/create',
+  'dishes/update',
   async ({id, dish}) => {
     await axiosApi.put('/dishes/' + id + '.json', dish);
   }
@@ -54,5 +54,12 @@ export const fetchOneDish = createAsyncThunk<ApiDish, string>(
     }
     
     return dish;
+  }
+);
+
+export const deleteDish = createAsyncThunk<void, string>(
+  'dishes/delete',
+  async (id) => {
+    await axiosApi.delete('/dishes/' + id + '.json');
   }
 );

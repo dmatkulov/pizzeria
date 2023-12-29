@@ -1,20 +1,19 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {selectCreateLoading, selectDish, selectFetchOneLoading} from '../../store/adminSlice';
+import {selectDish, selectFetchOneLoading, selectUpdating} from '../../store/adminSlice';
 import {useNavigate, useParams} from 'react-router-dom';
 import {fetchOneDish, updateDish} from '../../store/adminThunks';
 import DishForm from '../../components/DishForm/DishForm';
 import {ApiDish} from '../../types';
 import Spinner from '../../components/Spinner/Spinner';
-import {useSelector} from 'react-redux';
 
 const EditDishForm: React.FC = () => {
   const {id} = useParams() as { id: string };
   const navigate = useNavigate();
   const dish = useAppSelector(selectDish);
   const dispatch = useAppDispatch();
-  const dishLoading = useAppSelector(selectFetchOneLoading);
-  const createLoading = useSelector(selectCreateLoading);
+  const fetchOneLoading = useAppSelector(selectFetchOneLoading);
+  const dishLoading = useAppSelector(selectUpdating);
   
   useEffect(() => {
     void dispatch(fetchOneDish(id));
@@ -31,11 +30,11 @@ const EditDishForm: React.FC = () => {
   
   return (
     <div>
-      {dishLoading && <Spinner/>}
+      {fetchOneLoading && <Spinner/>}
       <DishForm
         onSubmitPizza={onSubmit}
         existingPizza={dish}
-        isLoading={createLoading}
+        isLoading={dishLoading}
         isEdit
       />
     </div>

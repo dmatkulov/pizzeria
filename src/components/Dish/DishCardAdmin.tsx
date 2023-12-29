@@ -5,6 +5,7 @@ import {defaultImage} from '../../lib/constants';
 
 interface Props {
   pizza: Dish;
+  deleteLoading: boolean | string;
 }
 
 const DishCard: React.FC<Props> = ({pizza}) => {

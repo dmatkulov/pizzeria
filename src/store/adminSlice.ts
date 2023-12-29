@@ -1,7 +1,7 @@
 import {ApiDish, Dish} from '../types';
 import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from '../app/store';
-import {createDish, fetchDishes, fetchOneDish} from './adminThunks';
+import {createDish, deleteDish, fetchDishes, fetchOneDish, updateDish} from './adminThunks';
 
 interface AdminState {
   dishes: Dish[];
@@ -9,6 +9,7 @@ interface AdminState {
   createLoading: boolean;
   fetchLoading: boolean;
   fetchOneLoading: boolean;
+  isUpdating: boolean;
   fetchError: boolean;
   deleteLoading: false | string;
 }
@@ -19,6 +20,7 @@ const initialState: AdminState = {
   createLoading: false,
   fetchLoading: false,
   fetchOneLoading: false,
+  isUpdating: false,
   fetchError: false,
   deleteLoading: false
 };
@@ -58,8 +60,27 @@ export const adminSlice = createSlice({
     builder.addCase(fetchOneDish.rejected, (state) => {
       state.fetchOneLoading = false;
     });
+    builder.addCase(updateDish.pending, (state) => {
+      state.isUpdating = true;
+    });
+    builder.addCase(updateDish.fulfilled, (state) => {
+      state.isUpdating = false;
+    });
+    builder.addCase(updateDish.rejected, (state) => {
+      state.isUpdating = false;
+    });
+    builder.addCase(deleteDish.pending, (state, {meta}) => {
+      state.deleteLoading = meta.arg;
+    });
+    builder.addCase(deleteDish.fulfilled, (state) => {
+      state.deleteLoading = false;
+    });
+    builder.addCase(deleteDish.rejected, (state) => {
+      state.deleteLoading = false;
+    });
   }
 });
+
 
 export const adminReducers = adminSlice.reducer;
 
@@ -67,5 +88,6 @@ export const selectDishes = (state: RootState) => state.pizzas.dishes;
 export const selectDish = (state: RootState) => state.pizzas.dish;
 export const selectCreateLoading = (state: RootState) => state.pizzas.createLoading;
 export const selectFetchLoading = (state: RootState) => state.pizzas.fetchLoading;
+export const selectUpdating = (state: RootState) => state.pizzas.isUpdating;
 export const selectFetchOneLoading = (state: RootState) => state.pizzas.fetchOneLoading;
 export const selectDeleteLoading = (state: RootState) => state.pizzas.deleteLoading;
