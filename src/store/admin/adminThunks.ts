@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {ApiDish, ApiOrders, Cart, Dish, PizzaList} from '../../types';
+import {ApiDish, ApiOrder, ApiOrders, Dish, DishesList} from '../../types';
 import axiosApi from '../../axiosApi';
 
 export const createDish = createAsyncThunk<void, ApiDish>(
@@ -12,7 +12,7 @@ export const createDish = createAsyncThunk<void, ApiDish>(
 export const fetchDishes = createAsyncThunk<Dish[], undefined>(
   'dishes/fetchAll',
   async () => {
-    const dishesResponse = await axiosApi.get<PizzaList | null>('/dishes.json');
+    const dishesResponse = await axiosApi.get<DishesList | null>('/dishes.json');
     const dishes = dishesResponse.data;
     
     if (!dishes) {
@@ -31,7 +31,7 @@ export const fetchDishes = createAsyncThunk<Dish[], undefined>(
   }
 );
 
-export const fetchOrders = createAsyncThunk<Cart[], undefined>(
+export const fetchOrders = createAsyncThunk<ApiOrder[], undefined>(
   'orders/fetchAll',
   async () => {
     const ordersResponse = await axiosApi.get<ApiOrders | null>('/orders.json');
@@ -41,8 +41,8 @@ export const fetchOrders = createAsyncThunk<Cart[], undefined>(
       return [];
     }
     
-    const fetchedOrders: Cart[] =
-    
+    const newOrders: ApiOrder[] = Object.keys(orders).map((id) => orders[id]);
+    return newOrders;
   }
 );
 

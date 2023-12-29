@@ -5,14 +5,21 @@ export interface Dish {
   price: string;
 }
 
-export type ApiDish = Omit<Dish, 'id'>
+export type ApiDish = Omit<Dish, 'id'>;
 
-export interface PizzaList {
+
+export interface DishesList {
   [id: string]: ApiDish;
 }
 
 export interface Cart {
   dish: Dish;
+  amount: number;
+}
+export type Order = Omit<Dish, 'image'>
+
+export interface OrderList {
+  dish: Order;
   amount: number;
 }
 
@@ -23,3 +30,4 @@ export interface ApiOrder {
 export interface ApiOrders {
   [id: string]: ApiOrder;
 }
+

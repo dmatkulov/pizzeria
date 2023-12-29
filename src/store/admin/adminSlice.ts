@@ -1,7 +1,7 @@
 import {ApiDish, Cart, Dish} from '../../types';
 import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from '../../app/store';
-import {createDish, deleteDish, fetchDishes, fetchOneDish, updateDish} from './adminThunks';
+import {createDish, deleteDish, fetchDishes, fetchOneDish, fetchOrders, updateDish} from './adminThunks';
 
 interface AdminState {
   dishes: Dish[];
@@ -11,6 +11,7 @@ interface AdminState {
   fetchLoading: boolean;
   fetchOneLoading: boolean;
   isUpdating: boolean;
+  orderLoading: boolean;
   fetchError: boolean;
   deleteLoading: false | string;
 }
@@ -23,6 +24,7 @@ const initialState: AdminState = {
   fetchLoading: false,
   fetchOneLoading: false,
   isUpdating: false,
+  orderLoading: false,
   fetchError: false,
   deleteLoading: false
 };
@@ -61,6 +63,31 @@ export const adminSlice = createSlice({
     });
     builder.addCase(fetchOneDish.rejected, (state) => {
       state.fetchOneLoading = false;
+    });
+    builder.addCase(fetchOrders.pending, (state) => {
+      state.orderLoading = true;
+    });
+    builder.addCase(fetchOrders.fulfilled, (state, {payload: orders}) => {
+      state.orderLoading = false;
+      
+      const newOrders: Cart[] = [];
+      
+      state.dishes.forEach((dish) => {
+        orders.forEach((order) => {
+          const amount = order[dish.id];
+          
+          if (amount) {
+            newOrders.push({
+              dish,
+              amount,
+            });
+          }
+        });
+      });
+      state.orders = newOrders;
+    });
+    builder.addCase(fetchOrders.rejected, (state) => {
+      state.orderLoading = false;
     });
     builder.addCase(updateDish.pending, (state) => {
       state.isUpdating = true;
