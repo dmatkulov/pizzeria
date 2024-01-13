@@ -19,7 +19,7 @@ const Dishes: React.FC = () => {
   const onDeleteDish = useCallback(async (id: string) => {
     await dispatch(deleteDish(id));
     await dispatch(fetchDishes());
-  }, [dispatch]) ;
+  }, [dispatch]);
   
   return (
     <>

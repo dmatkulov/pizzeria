@@ -7,7 +7,6 @@ export interface Dish {
 
 export type ApiDish = Omit<Dish, 'id'>;
 
-
 export interface DishesList {
   [id: string]: ApiDish;
 }
@@ -16,11 +15,9 @@ export interface Cart {
   dish: Dish;
   amount: number;
 }
-export type Order = Omit<Dish, 'id' | 'image'>
-
 export interface OrderList {
   id: string;
-  dishes: Cart[]
+  dishes: Cart[];
 }
 
 export interface ApiOrder {
