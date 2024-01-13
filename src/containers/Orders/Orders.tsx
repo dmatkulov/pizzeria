@@ -1,41 +1,32 @@
 import React, {useEffect} from 'react';
-import {fetchOrders} from '../../store/admin/adminThunks';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {selectOrders} from '../../store/admin/adminSlice';
-import OrderItem from './OrderItem';
-import {selectOrderLoading} from '../../store/cart/cartSlice';
+import {selectOrders, selectOrdersLoading} from '../../store/admin/adminSlice';
 import Spinner from '../../components/Spinner/Spinner';
+import OrderList from './OrderList';
+import {fetchDishes, fetchOrders} from '../../store/admin/adminThunks';
 
 const Orders: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const orderLoading = useAppSelector(selectOrderLoading);
+  const orderLoading = useAppSelector(selectOrdersLoading);
   const orders = useAppSelector(selectOrders);
+  const dispatch = useAppDispatch();
   
   useEffect(() => {
+    void dispatch(fetchDishes());
     void dispatch(fetchOrders());
   }, [dispatch]);
   
-  if (!orders.length) {
-    return <div>No orders available.</div>;
-  }
   
   return (
     <div className="row">
-      {orderLoading && <Spinner/>}
-      <div className="col-8">
-        {orders.length > 0 && orders.map((order) => (
-          <OrderItem order={order[0]} key={Object.keys(order)[0]}/>
+      {orderLoading ? <Spinner/> :
+        orders.length > 0 &&
+        orders.map((order) => (
+          <OrderList
+            key={order.id}
+            dishes={order.dishes}
+            orderId={order.id}
+          />
         ))}
-      </div>
-      <div className="col-4">
-        <h5>Order total</h5>
-        <p> KGS</p>
-        <button
-          className="btn btn-link"
-        >
-          Complete order
-        </button>
-      </div>
     </div>
   );
 };

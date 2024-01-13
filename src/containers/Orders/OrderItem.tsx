@@ -2,25 +2,22 @@ import React from 'react';
 import {Cart} from '../../types';
 
 interface Props {
-  order: Cart;
+  dish: Cart;
 }
-const OrderItem: React.FC<Props> = ({order}) => {
-  if (!order || !order.dish) {
-    return null;
-  }
-  const price = +order.dish.price * order.amount;
+const OrderItem: React.FC<Props> = ({dish}) => {
+  const price = +dish.dish.price * dish.amount;
   
-  return order && (
+  return dish && (
     <div className="d-flex justify-content-between align-items-center pb-3 mb-3 border-bottom">
       <div
         className="col-2"
       >
-        × {order.amount}
+        × {dish.amount}
       </div>
       <div
         className="col-5"
       >
-        {order.dish.title}
+        {dish.dish.title}
       </div>
       
       <strong

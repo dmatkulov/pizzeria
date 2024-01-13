@@ -8,7 +8,7 @@ const Checkout: React.FC = () => {
   
   return (
       <div className="ms-auto mb-5 bg-body-tertiary rounded-3 px-3 py-4 d-flex align-items-center justify-content-between gap-2">
-        Order total: {total} KGS
+        Order total: {total - 150} KGS
         <button
           className="btn btn-primary"
           onClick={() => dispatch(setShowModal(true))}

@@ -19,7 +19,8 @@ export interface Cart {
 export type Order = Omit<Dish, 'id' | 'image'>
 
 export interface OrderList {
-  [id: string]: Cart
+  id: string;
+  dishes: Cart[]
 }
 
 export interface ApiOrder {

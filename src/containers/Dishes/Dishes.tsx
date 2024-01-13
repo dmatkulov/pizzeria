@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {selectDeleteLoading, selectDishes, selectFetchLoading} from '../../store/admin/adminSlice';
 import Spinner from '../../components/Spinner/Spinner';
@@ -16,10 +16,10 @@ const Dishes: React.FC = () => {
     void dispatch(fetchDishes());
   }, [dispatch]);
   
-  const onDeleteDish = async (id: string) => {
+  const onDeleteDish = useCallback(async (id: string) => {
     await dispatch(deleteDish(id));
     await dispatch(fetchDishes());
-  };
+  }, [dispatch]) ;
   
   return (
     <>

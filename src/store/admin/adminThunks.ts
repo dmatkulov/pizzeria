@@ -71,3 +71,10 @@ export const deleteDish = createAsyncThunk<void, string>(
     await axiosApi.delete('/dishes/' + id + '.json');
   }
 );
+
+export const deleteOrder = createAsyncThunk<void, string>(
+  'orders/delete',
+  async (orderId) => {
+    await axiosApi.delete('/orders/' + orderId + '.json');
+  }
+);

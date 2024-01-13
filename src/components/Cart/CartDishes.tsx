@@ -25,11 +25,11 @@ const CartDishes: React.FC = () => {
       const amount = cartDish.amount;
       return {...acc, [id]: amount};
     }, {});
-
+    
     await dispatch(orderDish(newDishes));
     dispatch(clearCart());
     dispatch(setShowModal(false));
-    dispatch(setTotal())
+    dispatch(setTotal());
   };
   
   let cart = (
